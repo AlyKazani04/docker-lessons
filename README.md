@@ -85,5 +85,12 @@ Covers the two ways containers can interact with persistent or host-side data:
 - **Bind mounts** — mount existing files from the host into the container at runtime (e.g., serving a pre-built `dist/` folder with NGINX without rebuilding the image).  
 - **Volumes** — Docker-managed file systems that persist data between container runs and can be shared across containers (e.g., an incrementing counter that survives restarts).
 
+---
+
 ### [11 — Docker Networking](./11_docker_networking/)
 A real-world example of networking using Docker containers. A Node server communicating with a MongoDB server running alongside it. Shows how Manual Bridge Networking can be implemented using Docker Containers.
+
+---
+
+### [12 — Docker Compose](./12_docker_compose/)
+Docker Compose allows us the ability to coordinate multiple containers and do so with one YAML file. Docker Compose makes it really simple to define the relationship between these containers and get them all running with one `docker compose up`.

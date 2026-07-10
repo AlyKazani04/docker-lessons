@@ -1,0 +1,34 @@
+services:
+  api:
+  # Name of the service.
+    build: api
+    # This runs the docker build on the dockerfile in the `./api` dir
+    ports:
+      - "8080:8080"
+      # Mapping 8080 of container to host machine. This way we can test the api directly as well.
+    links:
+      - db
+      # Linking to db container
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://db:27017
+      # Injecting environment variable in the api container to link to db container
+  db:
+    image: mongo:7
+    # This gets the mongo image from docker hub
+  web:
+    build: web
+    # This runs the docker build on the dockerfile in the `./web` dir
+    environment:
+      API_URL: http://api:8080
+      # Linking the web service to the api service using service name and port.
+    ports:
+      - "8081:80"
+      # Nginx default port is 80, so we are mapping nginx's port in the container to 8081 of the host machine.
+
+# To run this file:
+# run `docker compose up --build`: This will build all the containers from the images and link them automatically.
+# --build : This will build the images from the dockerfiles in the respective directories, without it, it will try to look for existing images.
+
+# You can increase the number of containers for each service by using:
+# docker compose up --scale web=10 db=3 : This will create 10 containers for web service and 3 containers for db service. 
+# The project isn't built to handle this, but this is just an example.
